@@ -32,6 +32,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+void swap(pair *xp, pair *yp);
 
 int main(int argc, string argv[])
 {
@@ -141,7 +142,19 @@ void add_pairs(void)
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // TODO
+    int min_id;
+    for (int i = 0; i < pair_count - 1; i++)
+    {
+        min_id = i;
+        for (int j = i + 1; j < pair_count; j++)
+        {
+            if (preferences[pairs[j].winner][pairs[j].loser] < preferences[pairs[min_id].winner][pairs[min_id].loser])
+            {
+                min_id = j;
+            }
+            swap(&pairs[min_id], &pairs[i]);
+        }
+    }
     return;
 }
 
@@ -157,4 +170,12 @@ void print_winner(void)
 {
     // TODO
     return;
+}
+
+// Swap function for sorting
+void swap(pair *xp, pair *yp)
+{
+    pair temp = *xp; 
+    *xp = *yp; 
+    *yp = temp;
 }
